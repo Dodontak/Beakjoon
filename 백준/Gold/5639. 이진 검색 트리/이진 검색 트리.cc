@@ -33,7 +33,8 @@ public:
 int main(void)
 {
 	ios::sync_with_stdio(0);
-	cin.tie(NULL);
+	cin.tie(0);
+	cout.tie(0);
 	int	num; cin >> num;
 	Node	root(num);
 	while (cin >> num) {
