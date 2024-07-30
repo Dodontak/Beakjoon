@@ -26,17 +26,17 @@ int main(void)
 	int	max_len = vec.back().back();
 	int	y = str1.size();
 	int	x = str2.size();
-	while (y > 0 && x > 0) {
-        if (vec[y][x] == vec[y - 1][x]) {
-            y--;
-        } else if (vec[y][x] == vec[y][x - 1]) {
-            x--;
-        } else {
-            ans.push(str1[y - 1]);
-            y--;
-            x--;
-        }
-    }
+	while (x > 0 && y > 0) {
+		if (vec[y][x] == vec[y][x - 1]) {
+			x--;
+		} else if (vec[y][x] == vec[y - 1][x]) {
+			y--;
+		} else if (vec[y][x] - 1 == vec[y - 1][x - 1]) {
+			ans.push(str2[x - 1]);
+			x--;
+			y--;
+		}
+	}
 	cout << vec.back().back() << endl;
 	while (!ans.empty()) {
 		cout << ans.top();
