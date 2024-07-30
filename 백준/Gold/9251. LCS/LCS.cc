@@ -1,25 +1,26 @@
 #include <iostream>
-#include <string>
 #include <vector>
+#include <string>
+#include <stack>
 
 using namespace std;
 
-int	main()
+int main(void)
 {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	string	a, b;
-	cin >> a >> b;
-	vector<vector<int> >	dp(b.length() + 1, vector<int>(a.length() + 1, 0));
-	for (size_t bi = 0, dpi = 1; bi < b.length(); ++bi, ++dpi) {
-		for (size_t aj = 0, dpj = 1; aj < a.length(); ++aj, ++dpj) {
-			if (b[bi] == a[aj]) {
-				dp[dpi][dpj] = dp[dpi - 1][dpj - 1] + 1;
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	string	str1, str2;
+	cin >> str1 >> str2;
+	vector<vector<int> >	vec(str1.size() + 1, vector<int>(str2.size() + 1, 0));
+	for (int i = 0; i < str1.size(); ++i) {
+		for (int j = 0; j < str2.size(); ++j) {
+			if (str1[i] == str2[j]) {
+				vec[i + 1][j + 1] = vec[i][j] + 1;
 			} else {
-				dp[dpi][dpj] = max(dp[dpi][dpj - 1], dp[dpi - 1][dpj]);
+				vec[i + 1][j + 1] = max(vec[i + 1][j], vec[i][j + 1]);
 			}
-		}	
+		}
 	}
-	cout << dp[b.length()][a.length()] << '\n';
+	cout << vec.back().back() << endl;
 }
