@@ -12,34 +12,36 @@ int	calc(int cur, int next) {
 	else return 3;
 }
 
+vector<vector<int> >	func(const vector<vector<int> > &dp, int next) {
+	vector<vector<int> >	out(5, vector<int>(5, INF));
+	for (int left = 0 ; left < 5; ++left) {
+		for (int right = 0 ; right < 5; ++right) {
+			if (dp[left][right] == INF) continue;
+			out[left][next] = min(out[left][next], dp[left][right] + calc(right, next));
+			out[next][right] = min(out[next][right], dp[left][right] + calc(left, next));
+		}
+	}
+	return out;
+}
+
 int main(void)
 {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
 	vector<int>	vec;
+	vector<vector<int> >	dp(5, vector<int>(5, INF));
+	dp[0][0] = 0;
 	while (1) {
 		int	n;
 		cin >> n;
 		if (n == 0) break;
-		vec.push_back(n);
-	}
-	vector<vector<vector<int> > >	dp(vec.size() + 1, vector<vector<int> >(5, vector<int>(5, INF)));
-	dp[0][0][0] = 0;
-	for (int i = 0; i < vec.size(); ++i) {
-		int	next = vec[i];
-		for (int left = 0 ; left < 5; ++left) {
-			for (int right = 0 ; right < 5; ++right) {
-				if (dp[i][left][right] == INF) continue;
-				dp[i + 1][left][next] = min(dp[i + 1][left][next], dp[i][left][right] + calc(right, next));
-				dp[i + 1][next][right] = min(dp[i + 1][next][right], dp[i][left][right] + calc(left, next));
-			}
-		}
+		dp = func(dp, n);
 	}
 	int	ans = INF;
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			ans = min(dp[vec.size()][i][j], ans);
+			ans = min(dp[i][j], ans);
 		}
 	}
 	cout << ans << endl;
