@@ -6,13 +6,6 @@
 
 using namespace std;
 
-long long long_abs(long long num) {
-	if (num < 0) {
-		return -num;
-	}
-	return num;
-}
-
 int main(void)
 {
 	ios::sync_with_stdio(0);
@@ -30,7 +23,7 @@ int main(void)
 	for (int selected = 0; selected < vec.size(); ++selected) {
 		int	left = 0;
 		int	right = vec.size() - 1;
-		while (left < right && right >= 0 && left < vec.size()) {
+		while (left < right) {
 			if (right == selected) {
 				--right;
 				continue;
@@ -39,8 +32,8 @@ int main(void)
 				continue;
 			}
 			long long sum = vec[selected] + vec[left] + vec[right];
-			if (long_abs(sum) < ans) {
-				ans = long_abs(sum);
+			if (abs(sum) < ans) {
+				ans = abs(sum);
 				a = vec[selected];
 				b = vec[left];
 				c = vec[right];
