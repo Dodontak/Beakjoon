@@ -3,33 +3,39 @@
 
 using namespace std;
 
-void	print(int xst, int yst, int xed, int yed, const vector<vector<int> >& dp)
+int main()
 {
-	cout << dp[xed][yed] - dp[xed][yst - 1] - dp[xst - 1][yed] + dp[xst - 1][yst - 1] << '\n';
-}
-
-int	main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	int	n; cin >> n;
-	int	m; cin >> m;
-	vector<vector<int> >	vec(n + 1, vector<int>(n + 1));
-	for (int x = 1; x <= n; ++x) {
-		for (int y = 1; y <= n; ++y) {
-			cin >> vec[x][y];
-		}
-	}
-	vector<vector<int> >	dp(n + 1, vector<int>(n + 1, 0));
-	for (int x = 1; x <= n; ++x) {
-		for (int y = 1; y <= n; ++y) {
-			dp[x][y] = dp[x - 1][y] + dp[x][y - 1] - dp[x - 1][y - 1] + vec[x][y];
-		}
-	}
-	while (m--) {
-		int xst, yst, xed, yed;
-		cin >> xst >> yst >> xed >> yed;
-		print(xst, yst, xed, yed, dp);
-	}
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> vec(n + 1, vector<int>(n + 1, 0));
+    vector<vector<int>> dp(vec);
+    for (int y = 1; y <= n; ++y)
+    {
+        for (int x = 1; x <= n; ++x)
+        {
+            cin >> vec[y][x];
+        }
+    }
+    for (int y = 1; y <= n; ++y)
+    {
+        for (int x = 1; x <= n; ++x)
+        {
+            dp[y][x] = dp[y][x - 1] + dp[y - 1][x] - dp[y - 1][x - 1] + vec[y][x];
+        }
+    }
+    while (m--)
+    {
+        int x1, x2, y1, y2, a, b, c, d;
+        cin >> y1 >> x1 >> y2 >> x2;
+        x1--;
+        y1--;
+        a = dp[y1][x1];
+        b = dp[y1][x2];
+        c = dp[y2][x1];
+        d = dp[y2][x2];
+        cout << (a + d - b - c) << '\n';
+    }
 }
