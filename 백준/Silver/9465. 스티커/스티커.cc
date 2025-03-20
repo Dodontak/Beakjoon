@@ -3,13 +3,12 @@
 
 using namespace std;
 
-int get_ans(const vector<vector<int>> &vec, int n)
+int get_ans(const vector<vector<int>> &vec, vector<vector<int>> &dp, int n)
 {
     if (n == 1)
         return (max(vec[0][0], vec[1][0]));
     if (n == 2)
         return max(vec[0][0] + vec[1][1], vec[0][1] + vec[1][0]);
-    vector<vector<int>> dp(2, vector<int>(n, 0));
     dp[0][0] = vec[0][0];
     dp[1][0] = vec[1][0];
     dp[0][1] = dp[1][0] + vec[0][1];
@@ -29,15 +28,17 @@ int main()
     cout.tie(0);
     int t;
     cin >> t;
+    vector<vector<int>> vec(2, vector<int>(100000));
+    vector<vector<int>> dp(vec);
+
     while (t--)
     {
         int n;
         cin >> n;
-        vector<vector<int>> vec(2, vector<int>(n));
         for (int i = 0; i < n; ++i)
             cin >> vec[0][i];
         for (int i = 0; i < n; ++i)
             cin >> vec[1][i];
-        cout << get_ans(vec, n) << endl;
+        cout << get_ans(vec, dp, n) << endl;
     }
 }
