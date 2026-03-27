@@ -21,7 +21,7 @@ int main() {
       else
         new_dp[x] = dp[x];
     }
-    dp = std::move(new_dp);
+    std::swap(dp, new_dp);
   }
   cout << dp[k] << endl;
 }
