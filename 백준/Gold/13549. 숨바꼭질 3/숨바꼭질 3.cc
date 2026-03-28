@@ -22,7 +22,7 @@ int func(int start, int dest)
     if (start >= dest)
         return start - dest;
     PQ pq;
-    vector<bool> visit(dest * 3, false);
+    vector<bool> visit(dest * 2, false);
     pq.push({0, start});
     visit[start] = true;
     while (!pq.empty())
