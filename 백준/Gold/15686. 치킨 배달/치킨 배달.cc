@@ -54,17 +54,17 @@ int main()
 {
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> vec(n, vector<int>(n, 0));
     vector<PII> chickens;
     vector<PII> houses;
     for (int i = 0; i < n; ++i)
     {
         for (int j = 0; j < n; j++)
         {
-            cin >> vec[i][j];
-            if (vec[i][j] == 1)
+			int item;
+			cin >> item;
+            if (item == 1)
                 houses.push_back({j, i});
-            if (vec[i][j] == 2)
+            if (item == 2)
                 chickens.push_back({j, i});
         }
     }
